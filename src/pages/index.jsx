@@ -30,14 +30,15 @@ const MainPage = (props) => {
   }, []);
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
+    console.log(user, process.env.REACT_APP_API_URL);
     user &&
       socket.on(user.userId, (data) => {
         dispatch(InitData(data));
       });
-      socket.on(`${user.userId}/logout` ,() => {
-        localStorage.removeItem("user");
-        navigate("/login", { replace: true });
-      })
+    user && socket.on(`${user.userId}/logout`, () => {
+      localStorage.removeItem("user");
+      navigate("/login", { replace: true });
+    })
   }, []);
   return (
     <Stack direction="row" sx={{ height: "calc(100vh - 64px)", maxWidth: "100vw" }}>
