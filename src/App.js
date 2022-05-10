@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import Example from "./components/notification";
 import Setting from "./pages/setting";
 
-export const socket = io.connect("https://m-iot.herokuapp.com");
+export const socket = io.connect(process.env.REACT_APP_SOCKET_URL);
 
 function App() {
   const sensorData = useSelector((state) => state.data.clientData.sensor);

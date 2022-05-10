@@ -8,7 +8,8 @@ import { useEffect } from "react"
 import { dispatch } from "../../store"
 import { handleDrawerActive } from "../../store/action"
 
-const getTime = (sec) => {
+const getTime = (miniSec) => {
+  const sec = Date.now() - miniSec;
   const seconds = Math.floor((sec) / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
