@@ -74,8 +74,6 @@ export const options = {
 
 const color = ['255,0,0', '0,255,0', '0,0,255', '255,255,0', '255,0,255', '0,255,255'];
 
-
-
 const Chart = () => {
   const sensorData = useSelector(state => state.data.clientData.sensorData);
   const data = {

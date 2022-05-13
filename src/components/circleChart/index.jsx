@@ -8,23 +8,23 @@ const flex = {
 };
 
 const style = {
-  width: "250px",
-  height: "250px",
+  width: "230px",
+  height: "230px",
   borderRadius: "50%",
   background: "white",
   marginTop: 2,
 };
 
 const style1 = {
-  width: "230px",
-  height: "230px",
+  width: "210px",
+  height: "210px",
   borderRadius: "50%",
   background: "white",
 };
 
 const style2 = {
-  width: "200px",
-  height: "200px",
+  width: "190px",
+  height: "190px",
   borderRadius: "50%",
   background: "white",
 };

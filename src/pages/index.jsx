@@ -41,7 +41,7 @@ const MainPage = (props) => {
     })
   }, []);
   return (
-    <Stack direction="row" sx={{ height: "calc(100vh - 64px)", maxWidth: "100vw" }}>
+    <Stack direction="row" sx={{ height: "calc(100vh - 64px)", maxWidth: "100vw", marginTop: '60px' }}>
       <Box sx={{ height: '100%', background: '#1976D2' }}>
         <DrawerNav active={drawer.active} />
       </Box>

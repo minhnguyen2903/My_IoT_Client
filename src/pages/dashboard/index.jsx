@@ -32,87 +32,93 @@ const Dashboard = () => {
   }, []);
   return (
     <Box>
-      <Paper elevation={3} sx={{ margin: 1, padding: 1 }}>
+      <Paper elevation={3} sx={{ padding: 1 }}>
         <Chip label={getTime(clientData.lastRequest)} color="success"></Chip>
       </Paper>
-      <Stack direction="row" spacing={2}>
-        <Stack direction="column" spacing={2} sx={{ flex: "1" }}>
-          {clientData.sensor.map((item, index) => (
-            <Paper key={index} elevation={4} sx={{ padding: 2 }}>
-              <Stack direction="column" spacing={2} alignItems="center">
-                <CircleChart
-                  title={item.name}
-                  data={item.value}
-                  unit={item.unit}
-                />
-              </Stack>
-            </Paper>
-          ))}
-        </Stack>
-        <Paper sx={{ flex: "2", padding: 2 }} elevation={4}>
-          <Box>
-            <Typography variant="h4" sx={{ textAlign: "center" }}>
-              Bảng điều khiển
-            </Typography>
-            <Grid container spacing={2}>
-              <Grid item xs={4}>
-                <Box
-                  sx={{
-                    flex: "1",
-                    padding: 2,
-                    height: "100%",
-                    background: "#1976D2",
-                  }}
-                >
-                  <Contact
-                    title="Thiết bị 1"
-                    params="output0"
-                    status={clientData.output0}
-                  />
-                </Box>
+      <Grid container sx={{mt: 2}} spacing={2}>
+        <Grid item md={12} sm={12} lg={4} sx={{padding: 0, display: 'flex', justifyContent: 'center'}}>
+          <Grid container spacing={2} sx={{ width: "100%" }}>
+            {clientData.sensor.map((item, index) => (
+              <Grid item lg={12} md={6} sm={6} xs={12} key={index}>
+                <Paper elevation={4} sx={{ padding: 2, height: '100%' }}>
+                  <Stack direction="column" spacing={2} alignItems="center">
+                    <CircleChart
+                      title={item.name}
+                      data={item.value}
+                      unit={item.unit}
+                    />
+                  </Stack>
+                </Paper>
               </Grid>
-              <Grid item xs={4}>
-                <Box
-                  sx={{
-                    flex: "1",
-                    padding: 2,
-                    height: "100%",
-                    background: "#1976D2",
-                  }}
-                >
-                  <Contact
-                    title="Thiết bị 2"
-                    params="output1"
-                    status={clientData.output1}
-                  />
-                </Box>
+            ))}
+          </Grid>
+        </Grid>
+        <Grid item md={12} sm={12} xs={12} lg={8} sx={{padding: 0, display: 'flex', justifyContent: 'center'}}>
+          <Paper sx={{ padding: 2, width: "100%" }} elevation={4}>
+            <Box>
+              <Typography variant="h4" sx={{ textAlign: "center" }}>
+                Bảng điều khiển
+              </Typography>
+              <Grid container spacing={2}>
+                <Grid item md={4} lg={4} xs={12} sm={12}>
+                  <Box
+                    sx={{
+                      flex: "1",
+                      padding: 2,
+                      height: "100%",
+                      background: "#1976D2",
+                    }}
+                  >
+                    <Contact
+                      title="Thiết bị 1"
+                      params="output0"
+                      status={clientData.output0}
+                    />
+                  </Box>
+                </Grid>
+                <Grid item md={4} lg={4} xs={12} sm={12}>
+                  <Box
+                    sx={{
+                      flex: "1",
+                      padding: 2,
+                      height: "100%",
+                      background: "#1976D2",
+                    }}
+                  >
+                    <Contact
+                      title="Thiết bị 2"
+                      params="output1"
+                      status={clientData.output1}
+                    />
+                  </Box>
+                </Grid>
+                <Grid item md={4} lg={4} xs={12} sm={12}>
+                  <Box
+                    sx={{
+                      flex: "1",
+                      padding: 2,
+                      height: "100%",
+                      background: "#1976D2",
+                    }}
+                  >
+                    <Contact
+                      title="Thiết bị 3"
+                      params="output2"
+                      status={clientData.output2}
+                    />
+                  </Box>
+                </Grid>
               </Grid>
-              <Grid item xs={4}>
-                <Box
-                  sx={{
-                    flex: "1",
-                    padding: 2,
-                    height: "100%",
-                    background: "#1976D2",
-                  }}
-                >
-                  <Contact
-                    title="Thiết bị 3"
-                    params="output2"
-                    status={clientData.output2}
-                  />
-                </Box>
-              </Grid>
-            </Grid>
-          </Box>
-          <Box sx={{ marginTop: 2 }}>
-            <Typography variant="h4" sx={{ textAlign: "center" }}>
-              Điều khiển Led
-            </Typography>
-            <LedMode mode={clientData.ledMode} />
-          </Box>
-        </Paper>
-      </Stack>
+            </Box>
+            <Box sx={{ marginTop: 2 }}>
+              <Typography variant="h4" sx={{ textAlign: "center" }}>
+                Điều khiển Led
+              </Typography>
+              <LedMode mode={clientData.ledMode} />
+            </Box>
+          </Paper>
+        </Grid>
+      </Grid>
     </Box>
   );
 };
