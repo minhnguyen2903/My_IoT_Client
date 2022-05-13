@@ -1,11 +1,11 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import * as React from "react";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Dashboard from "@mui/icons-material/Dashboard";
 import SsidChart from "@mui/icons-material/SsidChart";
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import { Typography, useMediaQuery } from "@mui/material";
 import { Outlet, useNavigate } from "react-router-dom";
 import Collapse from "@mui/material/Collapse";
 import { useSelector } from "react-redux";
@@ -70,11 +70,7 @@ const nav = [
 
 const DrawerNav = (props) => {
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(true);
   const drawer = useSelector((state) => state.drawer);
-  const handleClick = () => {
-    setOpen(!open);
-  };
   const matches = useMediaQuery("(max-width:900px)");
   return (
     <Collapse

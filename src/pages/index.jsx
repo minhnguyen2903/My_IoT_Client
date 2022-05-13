@@ -1,9 +1,7 @@
 import React from "react";
 import { Stack, Box, Paper } from "@mui/material";
 import DrawerNav from "../components/drawer";
-import { Route, Routes, Outlet, useNavigate } from "react-router-dom";
-import Dashboard from "./dashboard";
-import Chart from "./chart";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { socket } from "../App";
 import { dispatch } from "../store";
@@ -27,10 +25,9 @@ const MainPage = (props) => {
         navigate("/login", { replace: true });
       });
     }
-  }, []);
+  }, [navigate]);
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user, process.env.REACT_APP_API_URL);
     user &&
       socket.on(user.userId, (data) => {
         dispatch(InitData(data));
@@ -39,7 +36,7 @@ const MainPage = (props) => {
       localStorage.removeItem("user");
       navigate("/login", { replace: true });
     })
-  }, []);
+  }, [navigate]);
   return (
     <Stack direction="row" sx={{ height: "calc(100vh - 64px)", maxWidth: "100vw", marginTop: '60px' }}>
       <Box sx={{ height: '100%', background: '#1976D2' }}>
