@@ -70,7 +70,7 @@ const Dashboard = () => {
                     }}
                   >
                     <Contact
-                      title="Thiết bị 1"
+                      title="Bóng đèn"
                       params="output0"
                       status={clientData.output0}
                     />
@@ -86,7 +86,7 @@ const Dashboard = () => {
                     }}
                   >
                     <Contact
-                      title="Thiết bị 2"
+                      title="Quạt"
                       params="output1"
                       status={clientData.output1}
                     />
@@ -102,7 +102,7 @@ const Dashboard = () => {
                     }}
                   >
                     <Contact
-                      title="Thiết bị 3"
+                      title="Còi cảnh báo"
                       params="output2"
                       status={clientData.output2}
                     />
