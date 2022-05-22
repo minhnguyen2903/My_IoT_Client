@@ -14,15 +14,12 @@ const getTime = (miniSec) => {
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
   const days = Math.floor(hours / 24);
-  return (
-    "Cập nhập: " +
-    `${
-      (days && `${days} ngày`) ||
-      (hours && `${hours} giờ`) ||
-      (minutes && `${minutes} phút`) ||
-      `${seconds} giây`
-    }`
-  );
+  return `Cập nhập: ${
+    (days && `${days} ngày`) ||
+    (hours && `${hours} giờ`) ||
+    (minutes && `${minutes} phút`) ||
+    `${seconds} giây`
+  } trước`;
 };
 
 const Dashboard = () => {
@@ -35,12 +32,18 @@ const Dashboard = () => {
       <Paper elevation={3} sx={{ padding: 1 }}>
         <Chip label={getTime(clientData.lastRequest)} color="success"></Chip>
       </Paper>
-      <Grid container sx={{mt: 2}} spacing={2}>
-        <Grid item md={12} sm={12} lg={4} sx={{padding: 0, display: 'flex', justifyContent: 'center'}}>
+      <Grid container sx={{ mt: 2 }} spacing={2}>
+        <Grid
+          item
+          md={12}
+          sm={12}
+          lg={4}
+          sx={{ padding: 0, display: "flex", justifyContent: "center" }}
+        >
           <Grid container spacing={2} sx={{ width: "100%" }}>
             {clientData.sensor.map((item, index) => (
               <Grid item lg={12} md={6} sm={6} xs={12} key={index}>
-                <Paper elevation={4} sx={{ padding: 2, height: '100%' }}>
+                <Paper elevation={4} sx={{ padding: 2, height: "100%" }}>
                   <Stack direction="column" spacing={2} alignItems="center">
                     <CircleChart
                       title={item.name}
@@ -53,7 +56,14 @@ const Dashboard = () => {
             ))}
           </Grid>
         </Grid>
-        <Grid item md={12} sm={12} xs={12} lg={8} sx={{padding: 0, display: 'flex', justifyContent: 'center'}}>
+        <Grid
+          item
+          md={12}
+          sm={12}
+          xs={12}
+          lg={8}
+          sx={{ padding: 0, display: "flex", justifyContent: "center" }}
+        >
           <Paper sx={{ padding: 2, width: "100%" }} elevation={4}>
             <Box>
               <Typography variant="h4" sx={{ textAlign: "center" }}>
@@ -109,12 +119,6 @@ const Dashboard = () => {
                   </Box>
                 </Grid>
               </Grid>
-            </Box>
-            <Box sx={{ marginTop: 2 }}>
-              <Typography variant="h4" sx={{ textAlign: "center" }}>
-                Điều khiển Led
-              </Typography>
-              <LedMode mode={clientData.ledMode} />
             </Box>
           </Paper>
         </Grid>

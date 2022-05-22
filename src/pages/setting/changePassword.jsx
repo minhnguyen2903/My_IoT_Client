@@ -1,51 +1,56 @@
-import { Box, Button, Stack, TextField } from "@mui/material"
-import * as React from 'react'
+import { Box, Button, Stack, TextField } from "@mui/material";
+import * as React from "react";
 import axiosServices from "../../utils/axios";
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { IconButton, InputAdornment, Paper } from '@mui/material';
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { IconButton, InputAdornment, Paper } from "@mui/material";
 const ChangePassword = () => {
   const [password, setPassword] = React.useState({
     password: "",
-    submitPassword: ""
+    submitPassword: "",
   });
   const [showPassword, setShowPassword] = React.useState(false);
   const [submitting, setSubmitting] = React.useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
-  }
+  };
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
-  }
+  };
   const submit = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     setSubmitting(true);
     if (password.password === password.submitPassword) {
-      axiosServices.post("/change-password", {
-        password: password.password,
-        userId: user.userId
-      }).then(res => {
-        alert("Đôi mật khẩu thành công");
-        setPassword({password: '', submitPassword: ''});
-      }).catch(err => {
-        alert("Đôi mật khẩu thất bại");
-      }).finally(() => {
-        setSubmitting(false);
-      });
+      axiosServices
+        .post("/change-password", {
+          password: password.password,
+          userId: user.userId,
+        })
+        .then((res) => {
+          alert("Đôi mật khẩu thành công");
+          setPassword({ password: "", submitPassword: "" });
+        })
+        .catch((err) => {
+          alert("Đôi mật khẩu thất bại");
+        })
+        .finally(() => {
+          setSubmitting(false);
+        });
     } else {
       alert("mật khẩu không trùng khớp");
       setSubmitting(false);
     }
-  }
+  };
   return (
-    <Box>
-      <Stack direction="row" spacing={2}>
+    <Box sx={{paddign: 0}}>
+      <Stack direction="row" sx={{ flexWrap: "wrap" }}>
         <TextField
           required
+          sx={{ mt: 2, mr: 2 }}
           name="password"
           label="Mật khẩu"
-          type={showPassword ? 'text' : 'password'}
+          type={showPassword ? "text" : "password"}
           id="password"
           autoComplete="current-password"
           onChange={(e) => {
@@ -63,14 +68,15 @@ const ChangePassword = () => {
                   {showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-            )
+            ),
           }}
         />
         <TextField
           required
           name="submitPassword"
+          sx={{ mt: 2, mr: 2 }}
           label="Xác nhận mật khẩu"
-          type={showPassword ? 'text' : 'password'}
+          type={showPassword ? "text" : "password"}
           id="submitPassword"
           value={password.submitPassword}
           autoComplete="current-password"
@@ -88,13 +94,21 @@ const ChangePassword = () => {
                   {showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
-            )
+            ),
           }}
         />
-        <Button color="primary" variant="contained" onClick={submit} disabled={submitting}>Xác nhận</Button>
       </Stack>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={submit}
+        disabled={submitting}
+        sx={{ mt: 2 }}
+      >
+        Xác nhận
+      </Button>
     </Box>
-  )
-}
+  );
+};
 
-export default ChangePassword
+export default ChangePassword;

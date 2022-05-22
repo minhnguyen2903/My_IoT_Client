@@ -9,42 +9,47 @@ import { InitData } from "../store/action";
 import { useSelector } from "react-redux";
 import axiosServices from "../utils/axios";
 
-
 const MainPage = (props) => {
-  const drawer = useSelector(state => state.drawer);
+  const drawer = useSelector((state) => state.drawer);
   const navigate = useNavigate();
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user")) || {};
     if (!user) {
       navigate("/login", { replace: true });
     } else {
-      axiosServices.get(`/init/${user.userId}`).then(res => {
-        dispatch(InitData(res.data));
-      }).catch(err => {
-        localStorage.removeItem("user");
-        navigate("/login", { replace: true });
-      });
+      axiosServices
+        .get(`/init/${user.userId}`)
+        .then((res) => {
+          dispatch(InitData(res.data));
+          if (user.userId) {
+            socket.on(`${user.userId}/logout`, () => {
+              localStorage.removeItem("user");
+              navigate("/login", { replace: true });
+            });
+            socket.on(user.userId, (data) => {
+              dispatch(InitData(data));
+            });
+          }
+        })
+        .catch((err) => {
+          localStorage.removeItem("user");
+          navigate("/login", { replace: true });
+        });
     }
   }, [navigate]);
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    user &&
-      socket.on(user.userId, (data) => {
-        dispatch(InitData(data));
-      });
-    user && socket.on(`${user.userId}/logout`, () => {
-      localStorage.removeItem("user");
-      navigate("/login", { replace: true });
-    })
-  }, [navigate]);
   return (
-    <Stack direction="row" sx={{ height: "calc(100vh - 64px)", maxWidth: "100vw", marginTop: '60px' }}>
-      <Box sx={{ height: '100%', background: '#1976D2' }}>
+    <Stack
+      direction="row"
+      sx={{
+        height: "calc(100vh - 64px)",
+        maxWidth: "100vw",
+        marginTop: "60px",
+      }}
+    >
+      <Box sx={{ height: "100%", background: "#1976D2" }}>
         <DrawerNav active={drawer.active} />
       </Box>
-      <Box
-        sx={{ flexGrow: 1, background: "#fff", minHeight: "100%" }}
-      >
+      <Box sx={{ flexGrow: 1, background: "#fff", minHeight: "100%" }}>
         <Paper
           elevation={0}
           sx={{
@@ -61,7 +66,7 @@ const MainPage = (props) => {
         </Paper>
       </Box>
     </Stack>
-  )
-}
+  );
+};
 
 export default MainPage;
