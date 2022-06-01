@@ -15,12 +15,16 @@ export const socket = io.connect(process.env.REACT_APP_SOCKET_URL);
 
 function App() {
   const sensorData = useSelector((state) => state.data.clientData.sensor);
+  const [gasNotification, setGasNotification] = React.useState(0);
+  const [tempNotification, setTempNotification] = React.useState(0);
   useEffect(() => {
-    if(sensorData[0].value > 40) {
+    if(sensorData[0].value > 40 && Date.now() - gasNotification > 2000) {
       new Notification("Cảnh báo rò rỉ khí gas");
+      setGasNotification(Date.now());
     }
-    if(sensorData[1].value > 45) {
+    if(sensorData[1].value > 45 && Date.now() - tempNotification > 2000) {
       new Notification("Cảnh báo nhiệt độ cao");
+      setTempNotification(Date.now());
     }
   }, [sensorData]);
   return (
