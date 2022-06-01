@@ -8,9 +8,11 @@ import { dispatch } from "../store";
 import { InitData } from "../store/action";
 import { useSelector } from "react-redux";
 import axiosServices from "../utils/axios";
+import Example from "../components/notification";
 
 const MainPage = (props) => {
   const drawer = useSelector((state) => state.drawer);
+  const {clientData} = useSelector((state) => state.data);
   const navigate = useNavigate();
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user")) || {};

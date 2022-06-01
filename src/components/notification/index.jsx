@@ -6,6 +6,9 @@ class Example extends React.Component {
     super(props);
     this.showNotifications = this.showNotifications.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      message: '',
+    }
   }
 
   showNotifications() {
@@ -19,6 +22,8 @@ class Example extends React.Component {
 
   componentDidMount() {
     this.showNotifications();
+    console.log(this.props.data);
+    
   }
 
   render() {
@@ -26,12 +31,15 @@ class Example extends React.Component {
       <div>
         <ReactNotifications
           onRef={ref => (this.n = ref)} // Required
-          title="Some Title" // Required
+          title="M-IOT" // Required
           body={this.props.message}
           icon="devices-logo.png"
           tag="abcdef"
           onClick={event => this.handleClick(event)}
         />
+            <button onClick={this.showNotifications}>
+          Notify Me!
+        </button>
       </div>
     )
   }

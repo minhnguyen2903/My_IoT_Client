@@ -9,24 +9,23 @@ import io from "socket.io-client";
 import { useSelector } from "react-redux";
 import Example from "./components/notification";
 import Setting from "./pages/setting";
+import { useEffect } from "react";
 
 export const socket = io.connect(process.env.REACT_APP_SOCKET_URL);
 
 function App() {
   const sensorData = useSelector((state) => state.data.clientData.sensor);
-  function showNotifications() {
-    if (this.n.supported()) this.n.show();
-  }
-
+  useEffect(() => {
+    if(sensorData[0].value > 40) {
+      new Notification("Cảnh báo rò rỉ khí gas");
+    }
+    if(sensorData[1].value > 45) {
+      new Notification("Cảnh báo nhiệt độ cao");
+    }
+  }, [sensorData]);
   return (
     <BrowserRouter>
       <div className="App">
-        {sensorData[0].value > 40 && (
-          <Example message="CẢNH BÁO RÒ RỈ KHÍ GAS" />
-        )}
-        {sensorData[1].value > 45 && (
-          <Example message="CẢNH BÁO NHIÊT ĐỘ CAO" />
-        )}
         <PrimarySearchAppBar />
         <Routes>
           <Route path="/login" element={<Login />} />
